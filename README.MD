@@ -1,0 +1,1 @@
+This is a wordcounter algorithm for a technical test in java
