@@ -3,6 +3,8 @@ import java.util.HashMap;
 public class wordCounter {
     private HashMap<String, Integer> wordHolder;
 
+    //here we have our constructors
+
     public wordCounter(){//create a new hashmap
         wordHolder = new HashMap<String, Integer>();
     }
@@ -12,12 +14,18 @@ public class wordCounter {
         addWords(words);
     }
 
+    //here we have main functionality 
+
     public void addWord(String word){//translate a given word to english and then add it to the word counter
-        String englishWord = translator.translateString("word");
-        if(wordHolder.containsKey(englishWord)){
-            wordHolder.replace(englishWord,wordHolder.get(englishWord) + 1);
+        if(isValid(word)){//check it's a valid word with only alphabetic characters
+            String englishWord = translator.translateString(word);//translate it to english
+            if(wordHolder.containsKey(englishWord)){//if its already in wordholder
+                wordHolder.replace(englishWord,wordHolder.get(englishWord) + 1);//increment it's count by 1
+            } else{
+                wordHolder.put(englishWord, 1);//else add it to the word holder
+            }
         } else{
-            wordHolder.put(englishWord, 0);
+            throw new java.lang.RuntimeException("Error In addWord, " + word + " is not a valid input");
         }
     }
 
@@ -28,7 +36,20 @@ public class wordCounter {
     }
 
     public int countOf(String word){//return the count of a given word
-        return wordHolder.get(word);
+        if (wordHolder.containsKey(word)){
+            return wordHolder.get(word);
+        }
+        return 0;
+    }
+
+    //and here we have utility methods
+
+    public boolean isValid(String word){
+        //the regex here looks for any characters that aren't alphabetic
+        //then we have a chack that the string contins characters
+        boolean isValid = (!word.matches("^.*[^a-zA-Z].*$")) && (word.length()>0) ;
+        
+        return isValid;
     }
     
 }
