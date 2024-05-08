@@ -44,7 +44,7 @@ public class wordCounter {
 
     //and here we have utility methods
 
-    public boolean isValid(String word){
+    private boolean isValid(String word){
         //the regex here looks for any characters that aren't alphabetic
         //then we have a chack that the string contins characters
         boolean isValid = (!word.matches("^.*[^a-zA-Z].*$")) && (word.length()>0) ;
